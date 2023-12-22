@@ -1,0 +1,54 @@
+[tool.poetry]
+name = "airflow-provider-rmq"
+version = "0.6.19"
+description = "Provides an integration of RabbitMQ queues and exchanges into Apache Airflow as Hook/Operator/Sensor built on the pika package."
+authors = ["Johannes TIEMER <jtiemer@gmail.com>"]
+license = "Apache-2.0"
+readme = "README.md"
+homepage = "https://github.com/jtiemer/airflow-provider-rmq"
+repository = "https://github.com/jtiemer/airflow-provider-rmq"
+documentation = "https://github.com/jtiemer/airflow-provider-rmq"
+keywords = ["Airflow", "RabbitMQ", "messaging", "pika"]
+packages = [
+    {include = "rmq_provider"}
+]
+classifiers = [
+    "Environment :: Console",
+    "Framework :: Apache Airflow",
+    "Operating System :: OS Independent",
+    "Intended Audience :: Developers",
+    "Intended Audience :: Information Technology",
+    "License :: OSI Approved :: Apache Software License",
+    "Programming Language :: Python :: 3",
+    "Topic :: System :: Distributed Computing",
+    "Topic :: Software Development :: Libraries :: Python Modules"
+]
+include = [
+    "LICENSE"
+]
+
+[tool.poetry.plugins.apache_airflow_provider]
+provider_info = "rmq_provider.__init__:get_provider_info"
+
+[tool.poetry.dependencies]
+python = "^3.7"
+apache-airflow = ">=2.0"
+pika = "^1.2.0"
+whippet = "^0.3.2"
+
+[tool.poetry.dev-dependencies]
+black = ">=21.9"
+bandit = "^1.7.0"
+flake8 = "^4.0.1"
+isort = "^5.9.3"
+pytest = "^6.2.5"
+
+[tool.semantic_release]
+version_variable = "pyproject.toml:version"
+
+[tool.poetry.group.dev.dependencies]
+python-semantic-release = "^8.1.1"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"

@@ -1,0 +1,71 @@
+Metadata-Version: 2.1
+Name: airflow-provider-rmq
+Version: 0.6.19
+Summary: A RabbitMQ provider for Apache Airflow
+Author: Tes Engineering
+Author-email: engineering@tesglobal.com
+Requires-Python: >=3.7,<4.0
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.7
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Requires-Dist: apache-airflow (>=1.10)
+Requires-Dist: pika (>=1.2.0,<2.0.0)
+Requires-Dist: whippet (>=0.3.2,<0.4.0)
+Description-Content-Type: text/markdown
+
+
+# RabbitMQ Provider for Apache Airflow
+
+
+## Configuration
+
+In the Airflow user interface, configure a connection with the `Conn Type` set to RabbitMQ.
+Configure the following fields:
+
+- `Conn Id`: How you wish to reference this connection.
+    The default value is `rabbitmq_default`.
+- `login`: Login for the RabbitMQ server.
+- `password`: Password for the RabbitMQ server.,
+- `port`: Port for the RabbitMQ server, typically 5672.
+- `host`: Host of the RabbitMQ server.
+- `vhost`: The virtual host you wish to connect to.
+
+## Modules
+
+### RabbitMQ Operator
+
+The `RabbitMQOperator` publishes a message to your specificed RabbitMQ server.
+
+Import into your DAG using:
+
+```Python
+from rabbitmq_provider.operators.rabbitmq import RabbitMQOperator
+```
+
+### RabbitMQ Sensor
+
+The `RabbitMQSensor` checks a given queue for a message. Once it has found a message
+the sensor triggers downstream proccesses in your DAG.
+
+Import into your DAG using:
+
+```Python
+from rabbitmq_provider.sensors.rabbitmq import RabbitMQSensor
+```
+
+## Testing
+
+To run unit tests, use:
+
+```shell
+poetry run pytest .
+```
+
+A RabbitMQ instance is required to run the tests. Use the following command:
+
+```shell
+docker run --rm -it --hostname my-rabbit -p 15672:15672 -p 5672:5672 rabbitmq:3-management
+```
+
